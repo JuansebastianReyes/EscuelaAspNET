@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using ASP_.NET.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -8,19 +9,19 @@ namespace ASP_.NET.Controllers
     public class AsignaturaController : Controller
     {
         public IActionResult Index(){
-            return View(new Asignatura{Nombre="Programación", UniqueId = Guid.NewGuid ().ToString ()});
+            return View(_context.Asignaturas.FirstOrDefault());
         }
         public IActionResult MultiAsignatura(){
-            var listaAsignaturas = new List<Asignatura>(){
-                            new Asignatura{Nombre="Matemáticas",  UniqueId = Guid.NewGuid ().ToString ()} ,
-                            new Asignatura{Nombre="Educación Física",  UniqueId = Guid.NewGuid ().ToString ()},
-                            new Asignatura{Nombre="Castellano",  UniqueId = Guid.NewGuid ().ToString ()},
-                            new Asignatura{Nombre="Ciencias Naturales",  UniqueId = Guid.NewGuid ().ToString ()},
-                            new Asignatura{Nombre="Programación", UniqueId = Guid.NewGuid ().ToString ()}
-            };
+            
             ViewBag.CosaDinamica = "La Monja";
             ViewBag.Fecha = DateTime.Now;
-            return View(listaAsignaturas);
+            return View(_context.Asignaturas);
+        }
+
+        private EscuelaContext _context;
+        public AsignaturaController(EscuelaContext context)
+        {
+            _context = context;               
         }
 
     }
