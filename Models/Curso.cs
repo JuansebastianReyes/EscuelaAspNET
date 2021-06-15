@@ -12,5 +12,9 @@ namespace ASP_.NET.Models
 
         public string Direccion { get; set; }
 
+        public string EscuelaId { get; set; }
+
+        public Escuela Escuela { get; set; }
+
     }
 }
